@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.0.19:3306/cleartest?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: kaifa
+      password: Uepay@2018
+      
