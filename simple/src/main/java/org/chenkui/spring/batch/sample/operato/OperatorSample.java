@@ -48,7 +48,7 @@ class Cron {
 		jobRegistry.register(jobFactory);
 	}
 
-	@Scheduled(cron = "0/2 * * * * ? ")
+	@Scheduled(cron = "30 * * * * ? ")
 	void task1() {
 		System.out.println("1");
 		run();
