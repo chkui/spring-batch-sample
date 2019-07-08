@@ -18,8 +18,7 @@ public class CommondSample {
 		String[] argsExt = new String[2];
 		argsExt[0] = "BuilderParam1=Value1";
 		argsExt[1] = "BuilderParam2=Value2";
-		
-		
+		//运行Spring Framework
 		SpringApplication.run(CommondSample.class, argsExt);
 	}
 }

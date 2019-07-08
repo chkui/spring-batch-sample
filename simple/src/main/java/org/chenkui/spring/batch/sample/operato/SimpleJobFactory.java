@@ -3,7 +3,7 @@ package org.chenkui.spring.batch.sample.operato;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.JobFactory;
 
-public class SampleJobFactory implements JobFactory {
+public class SimpleJobFactory implements JobFactory {
 
 	private Job job;
 	

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 
 public class BatchDefaultConfig {
 	@Bean
+	//配置Step
 	public Step simpleStep(StepBuilderFactory builder, ItemReader<Record> reader, ItemProcessor<Record, Msg> processor,
 			ItemWriter<Msg> writer) {
 		return builder.get("SimpleStep").<Record, Msg>chunk(10).reader(reader).processor(processor).writer(writer)
@@ -21,6 +22,7 @@ public class BatchDefaultConfig {
 	}
 
 	@Bean
+	//配置 Reader
 	public ItemReader<Record> reader() {
 		return new ItemReader<Record>() {
 			private int count = 0;
@@ -33,6 +35,7 @@ public class BatchDefaultConfig {
 	}
 
 	@Bean
+	//配置 Processor
 	public ItemProcessor<Record, Msg> processor() {
 		return new ItemProcessor<Record, Msg>() {
 			public Msg process(Record item) throws Exception {
@@ -42,6 +45,7 @@ public class BatchDefaultConfig {
 	}
 
 	@Bean
+	//配置 Writer
 	public ItemWriter<Msg> writer() {
 		return new ItemWriter<Msg>() {
 			private int batchCount = 0;

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
+//导入依赖配置
 @Import({ BatchDefaultConfig.class })
 /**
  * 批处理配置
