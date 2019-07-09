@@ -6,6 +6,7 @@ Some Use Case for Spring Batch
 * [Job配置与运行](https://www.chkui.com/article/spring/spring_batch_job)
 * [Step控制](https://www.chkui.com/article/spring/spring_batch_step)
 * [Item概念及使用代码](https://www.chkui.com/article/spring/spring_batch_item_and_code_case)
+* [文件读写](https://www.chkui.com/article/spring/spring_batch_flat_file_read_and_write)
 
 ## 初始化数据库
 
