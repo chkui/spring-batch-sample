@@ -1,10 +1,13 @@
-package org.chenkui.spring.batch.sample.flatfile;
+package org.chenkui.spring.batch.sample.database;
 
 import org.chenkui.spring.batch.sample.entity.MaxTemperatureEntiry;
 import org.chenkui.spring.batch.sample.entity.WeatherEntity;
 import org.chenkui.spring.batch.sample.items.FlatFileProcessor;
 import org.chenkui.spring.batch.sample.items.FlatFileReader;
 import org.chenkui.spring.batch.sample.items.FlatFileWriter;
+import org.chenkui.spring.batch.sample.items.JdbcReader;
+import org.chenkui.spring.batch.sample.support.SimpleProcessor;
+import org.chenkui.spring.batch.sample.support.SimpleWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -19,25 +22,25 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 //导入依赖配置
-@Import({ FlatFileReader.class, FlatFileProcessor.class, FlatFileWriter.class })
+@Import({ JdbcReader.class, SimpleProcessor.class, SimpleWriter.class })
 /**
  * 批处理配置
  * 
  * @author chenkui
  *
  */
-public class FlatFileReadAndWrteConfig {
+public class DataBaseReadAndWriteConfig {
 	@Bean
-	public Job simpleJob(@Qualifier("flatfileOpsStep") Step step, JobBuilderFactory builder) {
-		return builder.get("FlatFileOper").start(step).build();
+	public Job simpleJob(@Qualifier("dataBaseOpsStep") Step step, JobBuilderFactory builder) {
+		return builder.get("DatabaseOper").start(step).build();
 	}
 
 	@Bean
 	// 配置Step
-	public Step flatfileOpsStep(StepBuilderFactory builder,
+	public Step dataBaseOpsStep(StepBuilderFactory builder,
 			@Qualifier("flatFileReader") ItemReader<WeatherEntity> reader,
-			@Qualifier("flatFileProcessor") ItemProcessor<WeatherEntity, MaxTemperatureEntiry> processor,
-			@Qualifier("flatFileWriter") ItemWriter<MaxTemperatureEntiry> writer) {
+			@Qualifier("simpleProcessor") ItemProcessor<WeatherEntity, MaxTemperatureEntiry> processor,
+			@Qualifier("simpleWriter") ItemWriter<MaxTemperatureEntiry> writer) {
 		return builder.get("SimpleStep").<WeatherEntity, MaxTemperatureEntiry>chunk(10).reader(reader)
 				.processor(processor).writer(writer)
 				// .faultTolerant().skipLimit(10).skip(Exception.class)
