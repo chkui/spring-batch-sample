@@ -7,6 +7,7 @@ Some Use Case for Spring Batch
 * [Step控制](https://www.chkui.com/article/spring/spring_batch_step)
 * [Item概念及使用代码](https://www.chkui.com/article/spring/spring_batch_item_and_code_case)
 * [文件读写](https://www.chkui.com/article/spring/spring_batch_flat_file_read_and_write)
+* [数据库读写](https://www.chkui.com/article/spring/spring_batch_database_read_and_write)
 
 ## 初始化数据库
 
@@ -34,4 +35,4 @@ Spring Batch需要有个数据库去存储执行过程中相关的元数据，�
 
 * 代码实现了读取文件、处理文件、写入文件的整个过程。处理文件的过程是只获取监控的最高温度信息（`Type=TMAX`），其他都过滤。
 
-* 本案例的代码使用`org.chenkui.spring.batch.sample.flatfile.FlatFileItemApplication::main`方法运行，使用的是Command Runner的方式执行（运行方式的说明见[Item概念及使用代码](https://www.chkui.com/article/spring/spring_batch_item_and_code_case)的*命令行方式运行*、*Java内嵌运行*）。
+* 本案例的包中有多个`main`方法用于不同的场景，详细内容见[文件读写](https://www.chkui.com/article/spring/spring_batch_flat_file_read_and_write)及[数据库读写](https://www.chkui.com/article/spring/spring_batch_database_read_and_write)的介绍。项目使用的是Command Runner的方式执行（运行方式的说明见[Item概念及使用代码](https://www.chkui.com/article/spring/spring_batch_item_and_code_case)的*命令行方式运行*、*Java内嵌运行*）。
