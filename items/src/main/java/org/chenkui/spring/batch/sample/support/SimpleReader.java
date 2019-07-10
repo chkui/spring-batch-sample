@@ -13,13 +13,13 @@ public class SimpleReader {
 	// 配置 Writer
 	public ItemReader<WeatherEntity> simpleReader() {
 		return new ItemReader<WeatherEntity>() {
-			private final int totalCount = 500;
+			private final int totalCount = 11;
 			private int readerCount = 0;
 
 			@Override
 			public WeatherEntity read()
 					throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-				if(totalCount > ++readerCount) {
+				if(totalCount > readerCount++) {
 					WeatherEntity entity = new WeatherEntity();
 					entity.setSiteId("SiteID_" + readerCount);
 					entity.setType(WeatherEntity.Type.TMAX);

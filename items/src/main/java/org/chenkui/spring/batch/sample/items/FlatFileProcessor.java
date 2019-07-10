@@ -10,8 +10,6 @@ public class FlatFileProcessor {
 	@Bean
 	public ItemProcessor<WeatherEntity, MaxTemperatureEntiry> flatFileProcessor() {
 		return new ItemProcessor<WeatherEntity, MaxTemperatureEntiry>() {
-			private int count = 0;
-
 			@Override
 			public MaxTemperatureEntiry process(WeatherEntity item) throws Exception {
 				if (WeatherEntity.Type.TMAX.equals(item.getType())) { // 只输出最高温度的记录
@@ -20,9 +18,6 @@ public class FlatFileProcessor {
 					maxTemperatureEntiry.setDate(item.getMonth());
 					maxTemperatureEntiry.setTemperature(item.getValue().toString());
 					maxTemperatureEntiry.setType(item.getType().name());
-					
-					System.out.println("" + ++count + ":" + maxTemperatureEntiry);
-					
 					return maxTemperatureEntiry;
 				} else {
 					return null;

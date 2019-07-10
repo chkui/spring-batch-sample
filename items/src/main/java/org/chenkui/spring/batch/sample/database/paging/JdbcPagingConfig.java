@@ -1,11 +1,8 @@
-package org.chenkui.spring.batch.sample.database;
+package org.chenkui.spring.batch.sample.database.paging;
 
 import org.chenkui.spring.batch.sample.entity.MaxTemperatureEntiry;
 import org.chenkui.spring.batch.sample.entity.WeatherEntity;
-import org.chenkui.spring.batch.sample.items.FlatFileProcessor;
-import org.chenkui.spring.batch.sample.items.FlatFileReader;
-import org.chenkui.spring.batch.sample.items.FlatFileWriter;
-import org.chenkui.spring.batch.sample.items.JdbcReader;
+import org.chenkui.spring.batch.sample.items.pageReader;
 import org.chenkui.spring.batch.sample.support.SimpleProcessor;
 import org.chenkui.spring.batch.sample.support.SimpleWriter;
 import org.springframework.batch.core.Job;
@@ -22,28 +19,31 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 //导入依赖配置
-@Import({ JdbcReader.class, SimpleProcessor.class, SimpleWriter.class })
+@Import({ pageReader.class, SimpleProcessor.class, SimpleWriter.class })
 /**
  * 批处理配置
  * 
  * @author chenkui
  *
  */
-public class DataBaseReadAndWriteConfig {
-	@Bean
-	public Job simpleJob(@Qualifier("dataBaseOpsStep") Step step, JobBuilderFactory builder) {
-		return builder.get("DatabaseOper").start(step).build();
-	}
-
+public class JdbcPagingConfig {
 	@Bean
 	// 配置Step
-	public Step dataBaseOpsStep(StepBuilderFactory builder,
-			@Qualifier("flatFileReader") ItemReader<WeatherEntity> reader,
+	public Step jdbcpagingStep(StepBuilderFactory builder,
+			@Qualifier("jdbcPagingItemReader") ItemReader<WeatherEntity> reader,
 			@Qualifier("simpleProcessor") ItemProcessor<WeatherEntity, MaxTemperatureEntiry> processor,
 			@Qualifier("simpleWriter") ItemWriter<MaxTemperatureEntiry> writer) {
-		return builder.get("SimpleStep").<WeatherEntity, MaxTemperatureEntiry>chunk(10).reader(reader)
-				.processor(processor).writer(writer)
-				// .faultTolerant().skipLimit(10).skip(Exception.class)
+		return builder.get("jdbcpagingStep").<WeatherEntity, MaxTemperatureEntiry>chunk(10).reader(reader)
+				.processor(processor)
+				.writer(writer) //
+				.faultTolerant() //扩展容错功能
+				.skipLimit(10) //跳过设置
+				.skip(Exception.class) //跳过的异常
 				.build();
+	}
+	
+	@Bean
+	public Job jdbcpagingJob(@Qualifier("jdbcpagingStep") Step step, JobBuilderFactory builder) {
+		return builder.get("jdbcpagingJob").start(step).build();
 	}
 }
